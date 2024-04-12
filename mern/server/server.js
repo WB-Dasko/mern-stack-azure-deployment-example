@@ -32,7 +32,7 @@ const options = {
     },
     servers: [
       {
-        url: `http://${URL}:${PORT}`,
+        url: `${URL}:${PORT}`,
       },
     ],
   },
