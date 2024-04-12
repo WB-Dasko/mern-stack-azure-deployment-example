@@ -14,7 +14,7 @@ const ObjectId = require("mongodb").ObjectId;
 
 
 // Get a list of 50 entries
-recordRoutes.get("/", async (req, res) => {
+recordRoutes.get("/metrics", async (req, res) => {
   let db_connect = db.getDb();
   let collection = db_connect.collection("metrics");
   let results = await collection.find({})
