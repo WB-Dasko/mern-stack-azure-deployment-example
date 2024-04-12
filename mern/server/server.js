@@ -10,6 +10,7 @@ const swaggerUi =require ("swagger-ui-express");
 dotenv.config();
 
 const PORT = process.env.PORT || 5050;
+const URL = process.env.URL || localhost
 
 const options = {
   definition: {
@@ -31,7 +32,7 @@ const options = {
     },
     servers: [
       {
-        url: `http://localhost:${PORT}`,
+        url: `http://${URL}:${PORT}`,
       },
     ],
   },
