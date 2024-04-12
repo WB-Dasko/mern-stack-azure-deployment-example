@@ -32,14 +32,14 @@ jobs:
       #     npm install
       #     npm run build
       #     cp -r ./build ../server/public
-      - run: |
-          zip -r mern-app.zip .
+      # - run: |
+      #     zip -r mern-app.zip .
             
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
           name: mern-app
-          path: mern/server/mern-app.zip
+          path: mern/server/
 
   deploy:
     runs-on: ubuntu-latest
@@ -53,9 +53,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: mern-app
-      - run: |
-          unzip mern-app.zip
-          rm mern-app.zip
+      # - run: |
+      #     unzip mern-app.zip
+      #     rm mern-app.zip
      
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
