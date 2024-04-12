@@ -9,7 +9,7 @@ const swaggerUi =require ("swagger-ui-express");
 
 dotenv.config();
 
-const PORT = process.env.PORT || 5050;
+const PORT = process.env.PORT;
 const URL = process.env.URL || localhost
 
 const options = {
@@ -32,7 +32,7 @@ const options = {
     },
     servers: [
       {
-        url: `${URL}:${PORT}`,
+        url: "https://msdocs-expressjs-mongodb-1337.azurewebsites.net",
       },
     ],
   },
