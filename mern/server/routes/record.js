@@ -4,12 +4,26 @@ const express = require("express");
 // We use it to define our routes.
 // The router will be added as a middleware and will take control of requests starting with path /record.
 const recordRoutes = express.Router();
-
+const router = express.Router();
 // This will help us connect to the database
-const dbo = require("../db/conn");
+const db = require("../db/conn");
 
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
+
+
+
+// Get a list of 50 entries
+recordRoutes.get("/", async (req, res) => {
+  let db_connect = db.getDb();
+  let collection = db_connect.collection("metrics");
+  let results = await collection.find({})
+    .limit(50)
+    .toArray();
+
+  res.send(results).status(200);
+});
+
 
 
 // This section will help you get a list of all the records.
