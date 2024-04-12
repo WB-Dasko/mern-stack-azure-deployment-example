@@ -10,8 +10,95 @@ const db = require("../db/conn");
 
 // This help convert the id from string to ObjectId for the _id.
 const ObjectId = require("mongodb").ObjectId;
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Reefer:
+ *       type: object
+ *       required:
+ *         - ChassisNumber
+ *         - CtuId
+ *         - Plate
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the book
+ *         ChassisNumber:
+ *           type: string
+ *           description: ChassisNumber
+ *         CtuId:
+ *           type: string
+ *           description: The CtuId 
+ *         Plate:
+ *           type: string
+ *           description: Plate
+ *         createdAt:
+ *           type: string
+ *           format: date
+ *           description: The date the book was added
+ *   
+ */
 
+/**
+ * @swagger
+ * tags:
+ *   name: Metrics
+ *   description: The metrics managing API
+ * /metrics/:
+ *   post:
+ *     summary: Create new metric data for a reefer
+ *     tags: [Metrics]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Reefer'
+ *     responses:
+ *       200:
+ *         description: The created metric.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Reefer'
+ *       500:
+ *         description: Some server error
+ *   get:
+ *     summary: Retrieve last 50 reefer metric data entries
+ *     tags: [Metrics]
+ *     responses:
+ *       200:
+ *         description: Last 50 data entries.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Reefer'
+ * /metrics/reefer/{id}:
+ *   get:
+ *     summary: Get the Reefer data by chasisnumber
+ *     tags: [Metrics]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The Reefer chasisnumber 
+ *     responses:
+ *       200:
+ *         description: The Reefer response by chasisnumber
+ *         contens:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Reefer'
+ *       404:
+ *         description: The Reefer was not found
+ */
 
+recordRoutes.get("/", (req, res) => {
+  res.redirect('/api-docs')
+});
 
 // Get a list of 50 entries
 recordRoutes.get("/metrics", async (req, res) => {
@@ -25,6 +112,27 @@ recordRoutes.get("/metrics", async (req, res) => {
 });
 
 
+recordRoutes.post('/metrics', async (req, res) => {
+  if (!req.body) {
+    res.sendStatus(404)
+  }
+  let db_connect = db.getDb();
+  let collection = db_connect.collection("metrics");
+  let newDocument = req.body;
+  newDocument.created = new Date();
+  let result = await collection.insertOne(newDocument);
+  res.status(200).send(result)
+});
+
+
+recordRoutes.get("/metrics/reefer/:id", async (req, res) => {
+  var id = req.params.id
+  let db_connect = db.getDb();
+  let collection = db_connect.collection("metrics");
+  let results = await collection.find({ ChassisNumber: id })
+    .toArray();
+  results ? res.status(200).json(results) : res.sendStatus(404);
+});
 
 // This section will help you get a list of all the records.
 recordRoutes.route("/record").get(function (req, res) {

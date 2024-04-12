@@ -22,14 +22,18 @@ jobs:
       - name: Install npm packages - server
         run: |
           cd mern/server
-          npm install       
-      
-      - name: Install npm packages, build then copy files - client
-        run: |
-          cd mern/client
           npm install
-          npm run build
-          cp -r ./build ../server/public
+          npm run build --if-present
+          npm run test --if-present       
+      
+      # - name: Install npm packages, build then copy files - client
+      #   run: |
+      #     cd mern/client
+      #     npm install
+      #     npm run build
+      #     cp -r ./build ../server/public
+      - run: |
+          zip -r mern-app.zip .
             
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
@@ -49,6 +53,9 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: mern-app
+      - run: |
+          unzip mern-app.zip
+          rm mern-app.zip
      
       - name: 'Deploy to Azure Web App'
         id: deploy-to-webapp
