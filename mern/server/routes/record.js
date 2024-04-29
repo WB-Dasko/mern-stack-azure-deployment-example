@@ -97,7 +97,7 @@ const ObjectId = require("mongodb").ObjectId;
  */
 
 recordRoutes.get("/", (req, res) => {
-  res.redirect('/api-docs')
+  // res.redirect('/api-docs')
 });
 
 // Get a list of 50 entries

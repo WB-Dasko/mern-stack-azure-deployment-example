@@ -1,26 +1,33 @@
 {
-  "name": "server",
-  "version": "1.0.0",
-  "description": "",
+  "name": "pusheservice",
+  "version": "0.01",
+  "description": "TrailerConnect PushService",
   "main": "server.js",
   "scripts": {
+    "prestart": "npm install",
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint .",
     "format": "prettier --single-quote --check .",
     "dev": "nodemon --experimental-modules server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "swagger"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
-    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.6.6",
-    "mongoose": "^5.12.4",
     "swagger-jsdoc": "^6.2.8",
-    "swagger-ui-express": "^5.0.0"
+    "swagger-ui-express": "^5.0.0",
+    "@azure/monitor-opentelemetry": "^1.4.0",
+    "connect": "^3.2.0",
+    "dotenv": "^16.4.5",
+    "js-yaml": "^3.3.0",
+    "mongoose": "^8.3.2",
+    "oas3-tools": "^2.2.3"
   },
   "devDependencies": {
     "eslint": "^8.0.0",
