@@ -27,7 +27,7 @@ dotenv.config();
 // const PORT = process.env.PORT;
 // const URL = process.env.URL || localhost
 
-const databaseUrl = process.env.ATLAS_URI || ""  //"mongodb+srv://connieveer999:Test123Schmitz@dasko.erhqgop.mongodb.net/?retryWrites=true&w=majority&appName=Dasko";
+const databaseUrl = process.env.ATLAS_URI || "" 
 mongoose.connect(databaseUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
