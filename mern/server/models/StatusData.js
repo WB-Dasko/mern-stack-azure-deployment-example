@@ -17,5 +17,5 @@ exports.StatusData = new Schema({
     "SystemConfig": {},
     "CustomProperties": {},
     "additionalProperties": Boolean
-});
+}).set('timestamps', true);
 
