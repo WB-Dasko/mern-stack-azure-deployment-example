@@ -1,13 +1,13 @@
 // Import Azure Monitor OpenTelemetry
-const { useAzureMonitor, AzureMonitorOpenTelemetryOptions } = require("@azure/monitor-opentelemetry");
-const config = {
-  azureMonitorExporterOptions: {
-    connectionString: "InstrumentationKey=c7084a8c-4594-4510-8df7-35278385de7d;IngestionEndpoint=https://westeurope-5.in.applicationinsights.azure.com/;LiveEndpoint=https://westeurope.livediagnostics.monitor.azure.com/;ApplicationId=894b97cb-93fd-433b-9397-d33ddc1159f5"
+// const { useAzureMonitor, AzureMonitorOpenTelemetryOptions } = require("@azure/monitor-opentelemetry");
+// const config = {
+//   azureMonitorExporterOptions: {
+//     connectionString: "InstrumentationKey=c7084a8c-4594-4510-8df7-35278385de7d;IngestionEndpoint=https://westeurope-5.in.applicationinsights.azure.com/;LiveEndpoint=https://westeurope.livediagnostics.monitor.azure.com/;ApplicationId=894b97cb-93fd-433b-9397-d33ddc1159f5"
     
-  },
-}
+//   },
+// }
 
-useAzureMonitor(config);
+// useAzureMonitor(config);
 
 
 // const express = require("express");
