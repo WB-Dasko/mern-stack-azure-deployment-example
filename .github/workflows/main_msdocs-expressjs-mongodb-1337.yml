@@ -4,10 +4,10 @@
 name: Build and deploy Node.js app to Azure Web App - msdocs-expressjs-mongodb-1337
 
 on:
-  # push:
-  #   branches:
-  #     - main
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+  #  workflow_dispatch:
   
 
 jobs:
