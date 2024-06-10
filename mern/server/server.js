@@ -3,7 +3,7 @@
 // const config = {
 //   azureMonitorExporterOptions: {
 //     connectionString: "InstrumentationKey=c7084a8c-4594-4510-8df7-35278385de7d;IngestionEndpoint=https://westeurope-5.in.applicationinsights.azure.com/;LiveEndpoint=https://westeurope.livediagnostics.monitor.azure.com/;ApplicationId=894b97cb-93fd-433b-9397-d33ddc1159f5"
-    
+
 //   },
 // }
 
@@ -13,7 +13,7 @@
 // const express = require("express");
 // const app = express();
 // const cors = require("cors");
-const dotenv = require ("dotenv");
+const dotenv = require("dotenv");
 var path = require('path');
 var http = require('http');
 const mongoose = require('mongoose');
@@ -27,18 +27,18 @@ dotenv.config();
 // const PORT = process.env.PORT;
 // const URL = process.env.URL || localhost
 
-const databaseUrl = process.env.ATLAS_URI || "" 
+const databaseUrl = process.env.ATLAS_URI || ""
 mongoose.connect(databaseUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
-}).then(()=> {
+}).then(() => {
   console.log("connected to DB");
 })
-.catch((error)=> {
-  console.log(databaseUrl)
-  console.error("Error connecting to DB:", error)
- 
-});
+  .catch((error) => {
+    console.log(databaseUrl)
+    console.error("Error connecting to DB:", error)
+
+  });
 
 var oas3Tools = require('oas3-tools');
 var serverPort = 8080;
@@ -46,8 +46,11 @@ var serverPort = 8080;
 
 var options = {
   routing: {
-      controllers: path.join(__dirname, './controllers')
+    controllers: path.join(__dirname, './controllers')
   },
+  openApiValidator: {
+    validateRequests: false
+  }
 };
 
 var expressAppConfig = oas3Tools.expressAppConfig(path.join(__dirname, 'api/openapi.yaml'), options);

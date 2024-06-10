@@ -1,0 +1,1812 @@
+openapi: 3.0.1
+info:
+  title: PushApiServer
+  version: '1.20.0'
+paths:
+  /Json/Data:
+    post:
+      tags:
+        - Json
+      parameters:
+        - name: X-Data-Type
+          in: header
+          schema:
+            type: string
+            enum: ["Trip", "Status"]
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/StatusDataIn'
+                - $ref: '#/components/schemas/TripDataIn'
+            examples:
+              statusData:
+                $ref: '#/components/examples/statusData'
+              tripData:
+                $ref: '#/components/examples/tripData'
+      responses:
+        '200':
+          description: Success
+components:
+  examples:
+    statusData:
+      summary: StatusData
+      value: { "ChassisNumber": "DEMO0000006348436","CtuId": 15000006,"Plate": "Plate","ReferenceUserName": "FULL","ReferenceCustomerName": "cbtPortalDemo","ReceiveTime": "2021-10-28T01:01:03Z","DeviceTime": "2021-10-28T01:01:03Z","StatusData": [ { "Position": { "GPSDateTime": "2021-10-28T01:01:03Z","DateTime": "2021-10-28T01:01:03Z","Latitude": 48.905104,"Longitude": 2.882108,"GPSHeading": "85","GPSMilage": { "exists": true,"Value": 14518.919 },"Location": { "City": "DE, 66625 Nohfelden, AD Nonnweiler - Autobahnkreuz Landstuhl" },"Altitude": 143 },"SensorStatus": { "DateTime": "2021-10-28T01:01:03Z","IsCoupled": true,"IsDoor1Open": false,"EcoMode": false,"MileageInEcoMode": 10,"IsInMotion": { "exists": true,"Value": false },"Battery": { "ExternalPowerSupplyVoltage": 12.8,"ExternalPowerSupplyVoltageSpecified": true },"DoorLocking": { "State": "Open","ContactSensor": false } },"EBS": { "DateTime": "2021-10-28T01:01:03Z","Milage": 14439.185,"Velocity": "2","BogieLoad": 11.2,"Signal": "Off","Counter24NBrakes": 29,"CounterAbs": 0,"CounterRss": 0,"TyreTemperature": { "Temperature17": 16.0,"Temperature19": 16.0,"Temperature27": 16.0,"Temperature29": 17.0,"Temperature37": 17.0,"Temperature39": 16.0,"Temperature47": 16.0,"Temperature48": 16.0,"Temperature49": 16.0,"Temperature58": 16.0 },"TripVehicleDistance": 14439185 },"Temp": { "DateTime": "2021-10-28T01:01:03Z","Temp1": 4.3,"Temp2": 5.3,"Temp3": 4.8,"Temp4": 4.6 },"Reefer": { "DateTime": "2021-10-28T01:01:03Z","Presetname": { "exists": false,"Value": "" },"ReeferOn": "Off","ReeferId": "12345" },"TCI": { "DateTime": "2021-10-28T01:01:03Z","FuelLevel": { "FuelLevel": "95" } },"TirePressure": { "DateTime": "2021-10-28T01:01:03Z","FrontLeft": 9.8,"FrontRight": 9.9,"MiddleLeft": 9.8,"MiddleRight": 9.8,"RearLeft": 9.8,"RearRight": 9.7,"Spare": 9.7,"TirePressure16": 9.7,"TirePressure17": 9.7,"TirePressure19": 9.7,"TirePressure1A": 9.7,"TirePressure26": 9.7,"TirePressure27": 9.7,"TirePressure29": 9.7,"TirePressure2A": 9.7,"TirePressure36": 9.7,"TirePressure37": 9.7,"TirePressure39": 9.7,"TirePressure3A": 9.7,"TirePressure46": 9.7,"TirePressure47": 9.7,"TirePressure48": 9.7,"TirePressure49": 9.7,"TirePressure4A": 9.7,"TirePressureStates": { "State17": "NoPressureDrop","State19": "NoPressureDrop","State27": "FastPressureDrop","State29": "SlowAirLeakage","State37": "NoPressureDrop","State39": "FastPressureDrop","State47": "Overpressure","State48": "SlowAirLeakage","State49": "FastPressureDrop","State58": "FastPressureDrop" } },"LoadCarrierTracking": { "Tags": [ { "Mac": "AB:CD:EF:AB:CD:EF" } ] }, "Tapa": { "TapaVehicleStop": true, "Active": true, "TapaModeInterval": 50, "SabotageDetection": { "EbsDisconnect": true,"CisBatteryGuardCanDisconnect": false,"CisBatteryGuardDisconnectedOrNotAvailable": false,"DoorlockingSystemLinDisconnected": true } } } ],"Reason": { "Item": true,"ItemElementName": "Standard" }, "Events": [ { "Value": { "MinThreshold": 10,"MaxThreshold": 50 }, "Type": "HumidityAlarm" } ], "SystemConfig": { "TrailerType": "BOX_SEMITRAILER","TrailerProducer": "SCHMITZ_CARGOBULL_AG","TelematicType": "CTU_3","BatteryConfiguration": { "BatteryType": [ "EXTERNAL_BATTERY","BOARDNET_24_V" ] },"EBSType": "WABCO_EBS_E_1","HasBrakeLiningSensor": false,"TPCSType": "SCB","HasIgnitionSignal": true,"HasCouplingSensor": true,"HasDoorSensor1": true,"HasDoorSensor2": true,"HasDoorSensor3": false,"HasDoorSensor4": false,"TempLoggerType": "RESERVED","HasTempSensor1": true,"HasTempSensor2": true,"HasTempSensor3": true,"HasTempSensor4": true,"HasTempSensor5": false,"HasTempSensor6": false,"ReeferType": "","ReeferDataSource": "CBT_COOL_MAC_PRO","HasReeferCompartment1": true,"HasReeferCompartment2": true,"HasReeferCompartment3": false,"HasTCITruckIdentification": false,"HasTCIHumiditySensor": false,"HasTCIDigitalIn1": false,"HasTCIDigitalIn2": false,"HasLEDTankSensor": true },"CustomProperties": { "MyProp": "123","AccountId": "1234" },"OrderDetails": [ { "Reference": "Ref1","Consignments": [ { "Reference": "Ref2" } ] } ] }
+
+    tripData:
+      summary: Trip
+      value: {"ChassisNumber":"DEMO0000006348431","ReferenceUserName":"FULL","ReferenceCustomerName":"cbtPortalDemo","TripData":{"TripBase":{"StartData":{"DateTime":"2021-10-28T08:09:01Z","Latitude":45.770137,"Longitude":0.189347,"Location":{"City":""},"GPSDatetime":"2021-10-28T08:09:01Z"},"EndData":{"IsDoorOpen":false,"DateTime":"2021-10-28T10:34:51Z","Latitude":46.9276,"Longitude":-0.118955,"Location":{"City":""},"GPSDatetime":"2021-10-28T10:34:51Z"},"AlarmCount":"0","TotalDistance":15124400.0,"TripDuration":"8750","TripLength":153565.0,"NumberDoorChanges":"0","StandstillDuration":"0","AverageVelocity":"59","MaxVelocity":"84","AverageBogieLoad":"7690","Absolut24NCounter":{"exists":true,"Value":80},"Trip24NCounter":{"exists":true,"Value":0}},"Reefer":{},"Temp":{"Temp1":{"AverageTemp":7.093548387096774,"MinTemp":6.5,"MaxTemp":7.5},"Temp2":{"AverageTemp":7.338709677419356,"MinTemp":6.9,"MaxTemp":7.5},"Temp3":{"AverageTemp":8.232258064516133,"MinTemp":8.0,"MaxTemp":8.4},"Temp4":{"AverageTemp":8.232258064516133,"MinTemp":8.0,"MaxTemp":8.4}}}}
+  schemas:
+    OrderDetail:
+      type: object
+      properties:
+        Reference:
+          type: string
+          nullable: true
+        Consignments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Consignment'
+        Metadata:
+          type: object
+          format: KeyValuePair
+          additionalProperties: true
+          description: Custom properties (string-Key / string-Value pairs) as defined during tour creation in the metadata field
+    Consignment:
+      type: object
+      properties:
+        Reference:
+          type: string
+          nullable: true
+        Metadata:
+          type: object
+          format: KeyValuePair
+          additionalProperties: true
+          description: Custom properties (string-Key / string-Value pairs) as defined during tour creation in the metadata field
+    AntiTheft:
+      type: object
+      properties:
+        DoorOpenAlarm:
+          $ref: '#/components/schemas/DoorOpenAlarm'
+        AlarmWire:
+          $ref: '#/components/schemas/AlarmWire'
+      additionalProperties: false
+      description: 'AntiTheft contains Sensors relevant for security based alarms. More Sensors will be added in future Iterations.'
+    BatteryGuard:
+      type: object
+      properties:
+        PwrUextUndervoltage:
+          type: boolean
+          nullable: true
+          description: 'Undervoltage at external power supply.'
+        PwrUextUndervoltageImpending:
+          type: boolean
+          nullable: true
+          description: 'Undervoltage at external power supply impending.'
+      additionalProperties: false
+      description: 'Schmitz Battery Guard informs about the current state of the Reefer''s Battery.'
+    BatteryType:
+      enum:
+        - CTU_1_BATTERY
+        - CTU_2_LIN_BATTERY
+        - EXTERNAL_BATTERY
+        - BOARDNET_12_V
+        - BOARDNET_24_V
+        - CTU_3_BATTERY
+      type: string
+      description: 'Type of the CTU battery supply.'
+    BooleanEx:
+      type: object
+      properties:
+        exists:
+          type: boolean
+        Value:
+          type: boolean
+      additionalProperties: false
+    BooleanEx2:
+      type: object
+      properties:
+        exists:
+          type: boolean
+        valid:
+          type: boolean
+        Value:
+          type: boolean
+      additionalProperties: false
+    BooleanEx3:
+      type: object
+      properties:
+        valid:
+          type: boolean
+        Value:
+          type: boolean
+      additionalProperties: false
+    CompartmentOperatingMode:
+      enum:
+        - 'ON'
+        - 'OFF'
+        - COOLING
+        - HEATING
+        - DEFROST
+        - PRETRIP
+        - 'NULL'
+        - INVALID
+        - UNKNOWN
+        - DIAGNOSTIC
+      type: string
+      description: 'Operating mode for a specific compartment.'
+      nullable: true
+    CompartmentValues:
+      type: object
+      properties:
+        Setpoint:
+          type: number
+          format: double
+          nullable: true
+          description: 'Desired temperature.'
+        ReturnAirTemp:
+          $ref: '#/components/schemas/DoubleEx2'
+          description: 'Temperature of the Air which is sent into the Evaporator. Value is provided by the Reefer. (°C Resolution .1°C)'
+        SupplyTemp:
+          $ref: '#/components/schemas/DoubleEx2'
+          description: 'Temperature of the Air which leaves the Evaporator. Value is provided by the Reefer. (°C Resolution .1°C)'
+        EvaporatorCoilTemp:
+          $ref: '#/components/schemas/DoubleEx2'
+          description: 'Temperature of the Evaporator coils itself. Value is provided by the Reefer. (°C Resolution .1°C)'
+        OperatingMode:
+          $ref: '#/components/schemas/CompartmentOperatingMode'
+      additionalProperties: false
+    DefrostCycle:
+      enum:
+        - OneAndAHalfHours
+        - ThreeHours
+        - SixHours
+        - TwelveHours
+        - 'Off'
+      type: string
+      description: 'Indicates current status of the defrost cycle.'
+      nullable: true
+    DoorLocking:
+      type: object
+      properties:
+        State:
+          $ref: '#/components/schemas/DoorLockingState'
+        ErrorCode:
+          type: integer
+          format: int32
+          nullable: true
+          description: 'Error code of the door locking system.'
+        ContactSensor:
+          type: boolean
+          nullable: true
+        CmdSource:
+          $ref: '#/components/schemas/DoorLockingCmdSource'
+      additionalProperties: false
+      description: 'Current status of the door locking system including the source of the last command.'
+    DoorLockingCmdSource:
+      enum:
+        - App
+        - ReeferDisplay
+        - LinKeypad
+        - Portal
+        - DiagnosticSoftware
+        - AutomaticOnDorCloseOrWatchbox
+        - Unknown
+      type: string
+      description: 'Origin of the last command for the door locking system.'
+      nullable: true
+    DoorLockingState:
+      enum:
+        - Closed
+        - Open
+        - Intermediate
+      type: string
+      description: 'State of the door locking system.'
+      nullable: true
+    DoorOpenAlarm:
+      type: object
+      properties:
+        IsPresent:
+          type: boolean
+          nullable: true
+        ErrorState:
+          $ref: '#/components/schemas/DoorOpenAlarmErrorState'
+        EnabledState:
+          $ref: '#/components/schemas/DoorOpenAlarmEnabledState'
+        AlarmCmdSource:
+          $ref: '#/components/schemas/DoorOpenAlarmCmdSource'
+      additionalProperties: false
+      description: 'Status of the door open alarm system.'
+      nullable: true
+    AlarmWire:
+      enum:
+        - Open
+        - Closed
+      type: string
+      nullable: true
+    DoorOpenAlarmCmdSource:
+      enum:
+        - App
+        - ReeferDisplay
+        - LinKeypad
+        - Portal
+        - DiagnosticSoftware
+        - AutomaticOnDorCloseOrWatchbox
+        - Unknown
+      type: string
+      description: 'Origin of the last command for the door locking system.'
+      nullable: true
+    DoorOpenAlarmEnabledState:
+      enum:
+        - Disabled
+        - Enabled
+      type: string
+      description: 'Indicates the status of the alarm on door opening.'
+      nullable: true
+    DoorOpenAlarmErrorState:
+      enum:
+        - NoError
+        - Undervoltage
+        - DoorDefect
+      type: string
+      description: 'Error state of the door open alarm.'
+      nullable: true
+    DoubleEx:
+      type: object
+      properties:
+        exists:
+          type: boolean
+        Value:
+          type: number
+          format: double
+      additionalProperties: false
+    DoubleEx2:
+      type: object
+      properties:
+        exists:
+          type: boolean
+        valid:
+          type: boolean
+        Value:
+          type: number
+          format: double
+      additionalProperties: false
+    EbsError:
+      type: object
+      properties:
+        Priority:
+          $ref: '#/components/schemas/EbsErrorPriority'
+        ErrorCode:
+          type: integer
+          format: int32
+          description: 'Error code of the EBS.'
+        ErrorStatus:
+          type: integer
+          format: int32
+          description: 'Error status of the EBS.'
+        ErrorDescDE:
+          type: string
+          nullable: true
+          description: 'Error code description in german.'
+        ErrorDescEN:
+          type: string
+          nullable: true
+          description: 'Error code description in english.'
+      additionalProperties: false
+      description: 'Error state of the EBS.'
+    EbsErrorPriority:
+      enum:
+        - NoError
+        - Shutdown
+        - Alarm
+        - Advice
+      type: string
+      description: 'Severity of an EBS error.'
+    EbsErrors:
+      type: object
+      properties:
+        DateTime:
+          type: string
+          format: date-time
+        ErrorCodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/EbsError'
+          nullable: true
+      additionalProperties: false
+    EbsImmobilizerStatus:
+      enum:
+        - Reserved
+        - UnlockedRestrictedByTime
+        - LockedRestrictedByTime
+        - LockedUnlockNotPossibleDueToInactiveParkingBrake
+        - LockedUnlockPossibleViaSmartBoard
+      type: string
+      description: 'Status of the EBS immobilizer system.'
+      nullable: true
+    EbsSignal:
+      enum:
+        - 'Off'
+        - Yellow
+        - Red
+      type: string
+      nullable: true
+      description: 'State of the EBS light indicator.'
+    EBSStatus:
+      type: object
+      properties:
+        DateTime:
+          type: string
+          format: date-time
+          nullable: true
+          description: 'Point in time when the values were measured. Values will only be refreshed on activated ignition. On deactivated ignition the milage value will be "freezed" and velocity set to 0.'
+        Milage:
+          type: number
+          format: double
+          nullable: true
+          description: 'EBS based milage in kilometers.'
+        Velocity:
+          type: string
+          nullable: true
+          description: 'EBS based velocity in kilometers per hour (kph).'
+        BogieLoad:
+          type: number
+          format: double
+          nullable: true
+          description: 'Load of the trailer in metric tonnes. Resolution: 0.4 tonnes.'
+        IsBrakeLiningOK:
+          type: boolean
+          nullable: true
+          description: 'Condition of the brake pads.'
+        TyreLiningState:
+          $ref: '#/components/schemas/TyreLiningState'
+          description: 'Condition of the tyres.'
+        Signal:
+          $ref: '#/components/schemas/EbsSignal'
+          description: 'State of the EBS light indicator.'
+        Counter24NBrakes:
+          type: integer
+          format: int32
+          nullable: true
+          description: 'Absolute Counter for the amount of 24N brake maneuvers. Value is provided by the EBS.'
+        CounterAbs:
+          type: integer
+          format: int32
+          nullable: true
+          description: 'Absolute counter for the amount of brake maneuvers where ABS became active. Value is provided by the CTU.'
+        CounterRss:
+          type: integer
+          format: int32
+          nullable: true
+          description: 'Counter for the amount of Rss activations. Value is provided by the CTU.'
+        TyreTemperature:
+          $ref: '#/components/schemas/TyreTemperature'
+          description: 'Temperature of the tyres in degrees centigrade (°C).'
+        TyreRotationMileage:
+          type: integer
+          format: int32
+          nullable: true
+          description: 'Precision Milage Counter (if built in).'
+        EbsImmobilizerStatus:
+          $ref: '#/components/schemas/EbsImmobilizerStatus'
+        Errors:
+          $ref: '#/components/schemas/EbsErrors'
+        TripVehicleDistance:
+          type: integer
+          format: int32
+          nullable: true
+          description: 'Distance moved in the current Trip. Value is provided by the EBS.'
+      additionalProperties: false
+    EBSType:
+      enum:
+        - WABCO_EBS_D
+        - WABCO_EBS_E_0
+        - WABCO_EBS_E_1
+        - KNORR_BREMSE_G_1
+        - KNORR_BREMSE_G_2
+        - HALDEX_EB_GEN_1
+        - HALDEX_EB_GEN_2
+        - NO_EBS
+        - RESERVED
+      type: string
+      description: 'Type of the EBS.'
+    FuelLevelColor:
+      enum:
+        - RED
+        - YELLOW
+        - GREEN
+      type: string
+      description: 'Current color of the fuel level indicator.'
+      nullable: true
+    FuelLevelPercentOrDigitalState:
+      type: object
+      properties:
+        Item:
+          nullable: true
+        exists:
+          type: boolean
+      additionalProperties: false
+      description: 'Reefer tank fuel level of a sensor directly connected to the reefer unit. The vendors Carrier and Thermo King provide their own sensors which can be sent via this field. This reading is indipendent of the Schmitz Cargobull sensors.'
+    FuelLevelState:
+      type: object
+      properties:
+        FuelLevelColor:
+          $ref: '#/components/schemas/FuelLevelColor'
+        FuelLevel:
+          type: string
+          nullable: true
+        FuelLevelInLitre:
+          type: string
+          nullable: true
+      additionalProperties: false
+      description: 'Fuel level read by the TCI or the LED fuel level indicator.'
+    ItemChoiceType:
+      enum:
+        - BogieLoadAlarm
+        - BrakeLiningAlarm
+        - CouplingAlarm
+        - DoorAlarm
+        - EBS24NAlarm
+        - EBSNotConnected
+        - FuelLevelAlarm
+        - HumidityAlarm
+        - IgnitionAlarm
+        - MilageAlarm
+        - ReeferAlarm
+        - ReeferAlarmQueueChanged
+        - ReeferCurrentPresetChanged
+        - ReeferDieselElectricChanged
+        - ReeferOperationModeChanged
+        - ReeferPresetListChanged
+        - ReeferStartStopContinousChanged
+        - SetpointAlarm
+        - Standard
+        - StatusRequest
+        - TempLoggerMonitoringAlarm
+        - TemperatureAlarm
+        - TirePressureAlarm
+        - TrailerStartStopAlarm
+        - TagChangedAlarm
+        - UndervoltageAlarm
+        - VelocityAlarm
+        - WatchboxAlarm
+      type: string
+    Location:
+      type: object
+      properties:
+        City:
+          type: string
+          nullable: true
+        Direction:
+          $ref: '#/components/schemas/LongEx'
+        Distance:
+          $ref: '#/components/schemas/DoubleEx'
+      additionalProperties: false
+    LongEx:
+      type: object
+      properties:
+        exists:
+          type: boolean
+        Value:
+          type: integer
+          format: int64
+      additionalProperties: false
+    Position:
+      type: object
+      properties:
+        GPSDateTime:
+          type: string
+          format: date-time
+          nullable: true
+        DateTime:
+          type: string
+          format: date-time
+          nullable: true
+        Latitude:
+          type: number
+          format: double
+          nullable: true
+        Longitude:
+          type: number
+          format: double
+          nullable: true
+        GPSHeading:
+          type: string
+          nullable: true
+        GPSSpeed:
+          $ref: '#/components/schemas/LongEx'
+        GPSMilage:
+          $ref: '#/components/schemas/DoubleEx'
+        Location:
+          $ref: '#/components/schemas/Location'
+        Altitude:
+          type: integer
+          format: int32
+          nullable: true
+      additionalProperties: false
+    ProductProtection:
+      enum:
+        - Normal
+        - Sensitive
+        - HighlySensitive
+      type: string
+      description: 'Product protection level.'
+      nullable: true
+    ReeferRemoteStartEnabled:
+      enum:
+        - Off
+        - On
+        - Locked
+        - TemporaryNotAvailable
+      type: string
+      description: 'Reefer remote start enabled status.'
+      nullable: true
+    Quality:
+      type: object
+      properties:
+        DateTime:
+          type: string
+          format: date-time
+          nullable: true
+        GSMSignalStrength:
+          type: string
+          nullable: true
+        Is2DFix:
+          type: boolean
+          nullable: true
+        Is3DFix:
+          type: boolean
+          nullable: true
+        IsTimeOk:
+          type: boolean
+          nullable: true
+        NumSatellites:
+          type: string
+          nullable: true
+        exists:
+          type: boolean
+      additionalProperties: false
+      description: 'Quality of the GSM and the GPS connection.'
+    LoadCarrierTracking:
+      type: object
+      properties:
+        Tags:
+          type: array
+          items:
+            $ref: '#/components/schemas/LoadCarrierTag'
+          nullable: true
+          description: "List of load carrier tags received from the telematics unit"
+    LoadCarrierTag:
+      type: object
+      properties:
+        Mac:
+          type: string
+          nullable: false
+          description: "The MAC address of the tag in the format AB:CD:EF:AB:CD:EF"
+    Reason:
+      type: object
+      properties:
+        Item:
+          nullable: true
+        ItemElementName:
+          $ref: '#/components/schemas/ItemChoiceType'
+      additionalProperties: false
+      description: 'Reason for the telematics unit sending a message.'
+    StatusDataInEvent:
+      type: object
+      properties:
+        Value:
+          nullable: true
+          oneOf:
+            - $ref: '#/components/schemas/EBS24NAlarm'
+            - $ref: '#/components/schemas/ReasonTempLoggerMonitoringAlarm'
+            - $ref: '#/components/schemas/TirePressureAlarm'
+            - $ref: '#/components/schemas/ReasonUndervoltageAlarm'
+            - $ref: '#/components/schemas/ReasonVelocityAlarm'
+            - $ref: '#/components/schemas/WatchboxAlarm'
+            - $ref: '#/components/schemas/ReasonBogieLoadAlarm'
+            - $ref: '#/components/schemas/ReasonHumidityAlarm'
+            - $ref: '#/components/schemas/SetpointAlarm'
+            - $ref: '#/components/schemas/TemperatureAlarm'
+            - $ref: '#/components/schemas/ReasonReeferOperationModeChanged'
+          description: 'Null if specific Type does not have any additional data'
+        Type:
+          $ref: '#/components/schemas/ItemChoiceType'
+      additionalProperties: false
+      description: 'Events that may have triggered the telematics unit to send a message.'
+    EBS24NAlarm:
+      type: object
+      properties:
+        EBS24NDelta:
+          type: string
+          nullable: true
+      description: 'Used for event type EBS24NAlarm'
+    ReasonTempLoggerMonitoringAlarm:
+      type: object
+      properties:
+        IsAllClear:
+          nullable: true
+          type: boolean
+      description: 'Used for event type TempLoggerMonitoringAlarm'
+    TirePressureAlarm:
+      type: object
+      properties:
+        TirePosition:
+          enum: [ FRONT_LEFT_WHEEL,
+                  FRONT_RIGHT_WHEEL,
+                  MIDDLE_LEFT_WHEEL,
+                  MIDDLE_RIGHT_WHEEL,
+                  REAR_LEFT_WHEEL,
+                  REAR_RIGHT_WHEEL,
+                  SPARE_WHEEL,
+                  TYRE_POSITION_47,
+                  TYRE_POSITION_49 ]
+          type: string
+        Threshold:
+          type: number
+          format: double
+          nullable: true
+      description: 'Used for event type TirePressureAlarm'
+    ReasonUndervoltageAlarm:
+      type: object
+      properties:
+        BatteryType:
+          type: string
+          enum: [ CTU_1_BATTERY,
+                  CTU_2_LIN_BATTERY1,
+                  EXTERNAL_BATTERY,
+                  BOARDNET_12_V,
+                  BOARDNET_24_V,
+                  CTU_3_BATTERY ]
+      description: 'Used for event type UndervoltageAlarm'
+    ReasonVelocityAlarm:
+      type: object
+      properties:
+        Threshold:
+          nullable: true
+          type: integer
+          format: int64
+      description: 'Used for event type VelocityAlarm'
+    WatchboxAlarm:
+      type: object
+      properties:
+        WatchboxName:
+          type: string
+          nullable: true
+        WatchboxAlarmReason:
+          type: string
+          enum: [
+            WATCHBOX_ENTRY,
+            WATCHBOX_EXIT,
+            WATCHBOX_ENTRY_TIME_DIFFERENCE,
+            WATCHBOX_EXIT_TIME_DIFFERENCE,
+            WATCHBOX_MONITORING_FINISHED,
+          ]
+      description: 'Used for event type WatchboxAlarm'
+    ReasonBogieLoadAlarm:
+      type: object
+      properties:
+        Threshold:
+          type: number
+          format: int64
+          nullable: true
+      description: 'Used for event type BogieLoadAlarm'
+    ReasonHumidityAlarm:
+      type: object
+      properties:
+        MinThreshold:
+          type: number
+          format: int64
+          nullable: true
+        MaxThreshold:
+          type: number
+          format: int64
+          nullable: true
+      description: 'Used for event type HumidityAlarm'
+    SetpointAlarm:
+      type: object
+      properties:
+        SetpointSensor:
+          type: string
+          nullable: true
+          enum: [
+            SETPOINT_1,
+            SETPOINT_2,
+            SETPOINT_3,
+          ]
+        Threshold:
+          type: string
+          nullable: true
+        IsAllClear:
+          type: boolean
+          nullable: true
+      description: 'Used for event type SetpointAlarm'
+    TemperatureAlarm:
+      type: object
+      properties:
+        TemperatureSensor:
+          type: string
+          enum: [ TEMPERATURE_1,
+                  TEMPERATURE_2,
+                  TEMPERATURE_3,
+                  TEMPERATURE_4,
+                  TEMPERATURE_5,
+                  TEMPERATURE_6,
+          ]
+        MinThreshold:
+          type: string
+          nullable: true
+        MaxThreshold:
+          type: string
+          nullable: true
+        IsAllClear:
+          type: boolean
+          nullable: true
+      description: 'Used for event type TemperatureAlarm'
+    ReasonReeferOperationModeChanged:
+      type: object
+      properties:
+        CompartmentId:
+          type: array
+          items:
+            type: integer
+      description: 'Used for event type ReeferOperationModeChanged'
+    ReeferAlert:
+      type: object
+      properties:
+        AlertType:
+          $ref: '#/components/schemas/ServiceMessage'
+        AlertCode:
+          type: string
+          nullable: true
+        AlertTextDE:
+          type: string
+          nullable: true
+        AlertTextEN:
+          type: string
+          nullable: true
+        DateTime:
+          type: string
+          format: date-time
+      additionalProperties: false
+      description: 'List of alerts from the reefer. This list is vendor specific.'
+    ReeferDataSource:
+      enum:
+        - CARRIER_DATACOLD_500
+        - CARRIER_DATACOLD_500_V_2
+        - CARRIER_DATACOLD_500_V_3
+        - THERMOKING_I_BOX
+        - THERMOKING_I_BOX_V_2
+        - THERMOKING_DAS
+        - CBT_TRAILER_CONNECT_INTERFACE
+        - CBT_COOL_MAC_PRO
+        - CARRIER_DATA_TRAK_ADVANCE
+        - CARRIER_DATA_TRAK_STANDARD
+        - NO_REEFER
+        - RESERVED
+      type: string
+      description: 'Source of the reefer data.'
+    ReeferOnState:
+      enum:
+        - 'Off'
+        - 'On'
+      type: string
+      description: 'State of the reefer unit.'
+      nullable: true
+    ReeferStatus:
+      type: object
+      properties:
+        DateTime:
+          type: string
+          format: date-time
+          nullable: true
+        Compartment1:
+          $ref: '#/components/schemas/CompartmentValues'
+        Compartment2:
+          $ref: '#/components/schemas/CompartmentValues'
+        Compartment3:
+          $ref: '#/components/schemas/CompartmentValues'
+        PowerMode:
+          $ref: '#/components/schemas/ReeferStatusPowerMode'
+        TotalHours:
+          $ref: '#/components/schemas/LongEx'
+        DieselHours:
+          $ref: '#/components/schemas/LongEx'
+        ElectricHours:
+          $ref: '#/components/schemas/LongEx'
+        AccuHours:
+          type: integer
+          format: int64
+          nullable: true
+          description: 'Etrailer Accu Operating Hours'
+        MaintenanceHours1:
+          $ref: '#/components/schemas/LongEx'
+        MaintenanceHours2:
+          $ref: '#/components/schemas/LongEx'
+        ReeferAlerts:
+          $ref: '#/components/schemas/ReeferStatusReeferAlerts'
+        VendorSpecificData:
+          $ref: '#/components/schemas/ReeferStatusVendorSpecificData'
+        Presetname:
+          $ref: '#/components/schemas/StringEx'
+        ReeferOperationMode:
+          $ref: '#/components/schemas/ReeferStatusReeferOperationMode'
+        IsHighSpeedMode:
+          $ref: '#/components/schemas/BooleanEx'
+        ReeferFuelLevel:
+          $ref: '#/components/schemas/FuelLevelPercentOrDigitalState'
+        ReeferBatteryVoltage:
+          $ref: '#/components/schemas/DoubleEx'
+        AmbientTemperature:
+          $ref: '#/components/schemas/DoubleEx'
+        ReeferDigitalInput1:
+          $ref: '#/components/schemas/BooleanEx2'
+        ReeferDigitalInput2:
+          $ref: '#/components/schemas/BooleanEx2'
+        ReeferDigitalInput3:
+          $ref: '#/components/schemas/BooleanEx2'
+        ReeferDigitalInput4:
+          $ref: '#/components/schemas/BooleanEx2'
+        ReeferOn:
+          $ref: '#/components/schemas/ReeferOnState'
+        ReeferPresetIndex:
+          type: integer
+          format: int32
+          nullable: true
+        ProductProtection:
+          $ref: '#/components/schemas/ProductProtection'
+        KeyLock:
+          type: boolean
+          nullable: true
+        DefrostCycle:
+          $ref: '#/components/schemas/DefrostCycle'
+        ReeferId:
+          type: string
+          nullable: true
+        RemoteStartEnabled:
+          $ref: '#/components/schemas/ReeferRemoteStartEnabled'
+        Reefer1ZoneOneOff:
+          type: boolean
+          nullable: true
+          description: 'State of the reefer zone 1.'
+      additionalProperties: false
+      description: 'Status of reefer unit.'
+    ReeferStatusPowerMode:
+      enum:
+        - ELECTRIC
+        - DIESEL
+        - ACCU
+        - UNKNOWN
+      type: string
+      description: 'Indicates wether the reefer is running on electic power or on its diesel engine.'
+      nullable: true
+    ReeferStatusReeferAlerts:
+      type: object
+      properties:
+        ReeferAlert:
+          type: array
+          items:
+            $ref: '#/components/schemas/ReeferAlert'
+          nullable: true
+      additionalProperties: false
+      description: 'Alerts of the reefer unit. These alarms are vendor specific.'
+    ReeferStatusReeferOperationMode:
+      enum:
+        - START_STOP
+        - CONTINUOUS
+      type: string
+      description: 'Indicates wether the reefer is running in continuous or start_stop mode.'
+      nullable: true
+    ReeferStatusVendorSpecificData:
+      type: object
+      properties:
+        Item:
+          nullable: true
+        exists:
+          type: boolean
+      additionalProperties: false
+      description: 'Vendor specific reefer data.'
+    SensorStatus:
+      type: object
+      properties:
+        DateTime:
+          type: string
+          format: date-time
+          nullable: true
+        IsCoupled:
+          type: boolean
+          nullable: true
+        IsDoor1Open:
+          type: boolean
+          nullable: true
+        IsDoor2Open:
+          type: boolean
+          nullable: true
+        IsDoor3Open:
+          type: boolean
+          nullable: true
+        IsDoor4Open:
+          type: boolean
+          nullable: true
+        IsDoorOpen:
+          type: boolean
+          nullable: true
+        IsIgnitionOn:
+          type: boolean
+          nullable: true
+        IsInMotion:
+          $ref: '#/components/schemas/BooleanEx'
+        Battery:
+          $ref: '#/components/schemas/SensorStatusBattery'
+        DoorLocking:
+          $ref: '#/components/schemas/DoorLocking'
+        PwrUextUndervoltage:
+          type: boolean
+          nullable: true
+        PwrUintUndervoltage:
+          type: boolean
+          nullable: true
+        AntiTheft:
+          $ref: '#/components/schemas/AntiTheft'
+        EcoMode:
+          type: boolean
+          nullable: true
+        MileageInEcoMode:
+          type: number
+          format: uint
+          nullable: true
+          description: "Meters driven in eco mode"
+      additionalProperties: false
+      description: 'Displays various sensors in one field.'
+    SensorStatusBattery:
+      type: object
+      properties:
+        BoardnetPowerSupplyVoltage:
+          type: number
+          format: double
+          nullable: true
+        BoardnetPowerSupplyVoltageSpecified:
+          type: boolean
+          nullable: true
+        ExternalPowerSupplyVoltage:
+          type: number
+          format: double
+          nullable: true
+        ExternalPowerSupplyVoltageSpecified:
+          type: boolean
+          nullable: true
+        LINBattery:
+          $ref: '#/components/schemas/SensorStatusBatteryLINBattery'
+        CTUPowerSupplyVoltage:
+          nullable: true
+        BatteryGuard:
+          $ref: '#/components/schemas/BatteryGuard'
+      additionalProperties: false
+      description: 'Displays battery related information.'
+    SensorStatusBatteryLINBattery:
+      type: object
+      properties:
+        RemainCapacity:
+          type: integer
+          format: int64
+          nullable: true
+        FullChargeCapacity:
+          type: integer
+          format: int64
+          nullable: true
+        PowerSupplyVoltageLIN:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+      description: 'Displays information about the LIN battery.'
+    ServiceMessage:
+      enum:
+        - NO_SERVICE_NECESSARY
+        - SERVICE_NECESSARY
+        - SERVICE_OVERDUE
+        - SHUTDOWN_ALARM
+        - WARNING
+        - UNKNOWN
+      type: string
+    StatusData:
+      type: object
+      properties:
+        Position:
+          $ref: '#/components/schemas/Position'
+        SensorStatus:
+          $ref: '#/components/schemas/SensorStatus'
+        EBS:
+          $ref: '#/components/schemas/EBSStatus'
+        Temp:
+          $ref: '#/components/schemas/TemperatureLoggerStatus'
+        Reefer:
+          $ref: '#/components/schemas/ReeferStatus'
+        TCI:
+          $ref: '#/components/schemas/TCIStatus'
+        TirePressure:
+          $ref: '#/components/schemas/TirePressureStatus'
+        Quality:
+          $ref: '#/components/schemas/Quality'
+        LoadCarrierTracking:
+          $ref: '#/components/schemas/LoadCarrierTracking'
+        Tapa:
+          $ref: '#/components/schemas/TapaStatus'
+      additionalProperties: false
+      description: 'Actual StatusData object containing telematics data.'
+    StatusDataIn:
+      type: object
+      properties:
+        ChassisNumber:
+          type: string
+          nullable: true
+          description: 'Vehicle Identification Number (VIN) of the trailer. Globally unique. You want to understand this as the primary key for identifying a trailer.'
+        CtuId:
+          type: integer
+          format: int64
+          description: 'Unique ID of the Schmitz Cargobull Telematics Unit (CTU). This ID could change throughout the lifetime of a trailer due to upgrading to a next level CTU.'
+        Plate:
+          type: string
+          nullable: true
+          description: 'Contains the user defined Numberplate. Please note that this is field is definable by the user containing a String which is not matched against any defined format.'
+        ReferenceUserName:
+          type: string
+          nullable: true
+          description: 'User defined string which can be used to identify a tenant.'
+        ReferenceCustomerName:
+          type: string
+          description: 'User defined string which can be used to identify a tenant.'
+          nullable: true
+        ExternalOrderReference:
+          type: string
+          nullable: true
+          description: 'Contains a Order Reference if the Request describes a Tour based Message.'
+        ReceiveTime:
+          type: string
+          format: date-time
+          nullable: true
+          description: 'Time the message was received by the Schmitz Cargobull telematics backend.'
+        DeviceTime:
+          type: string
+          format: date-time
+          nullable: true
+          description: 'Telematics device time of when the message was created.'
+        StatusData:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusData'
+          nullable: true
+          description: 'The actual StatusData object.'
+        Events:
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusDataInEvent'
+          nullable: false
+          description: 'Events that may have triggered the telematics unit to send a message.'
+        Reason:
+          $ref: '#/components/schemas/Reason'
+          description: 'Reason for sending the message.'
+        SystemConfig:
+          $ref: '#/components/schemas/SystemConfig'
+          description: 'Configuration of the trailer.'
+        CustomProperties:
+          type: object
+          format: KeyValuePair
+          additionalProperties: true
+          nullable: true
+          description: "Custom properties (Key-Value pairs) as defined by the export account configuration"
+        OrderDetails:
+          type: array
+          nullable: true
+          description: "List of orders that the message is relevant for"
+          items:
+            $ref: '#/components/schemas/OrderDetail'
+      additionalProperties: false
+      description: 'Payload including the StatusData object as well as message related metadata.'
+    StringEx:
+      type: object
+      properties:
+        exists:
+          type: boolean
+        Value:
+          type: string
+          nullable: true
+      additionalProperties: false
+    SystemConfig:
+      type: object
+      properties:
+        TrailerType:
+          $ref: '#/components/schemas/TrailerType'
+        TrailerProducer:
+          $ref: '#/components/schemas/TrailerProducer'
+        TelematicType:
+          $ref: '#/components/schemas/TelematicType'
+        BatteryConfiguration:
+          $ref: '#/components/schemas/SystemConfigBatteryConfiguration'
+        EBSType:
+          $ref: '#/components/schemas/EBSType'
+        HasBrakeLiningSensor:
+          type: boolean
+        TPCSType:
+          $ref: '#/components/schemas/TPCSType'
+        HasIgnitionSignal:
+          type: boolean
+        HasCouplingSensor:
+          type: boolean
+        HasDoorSensor1:
+          type: boolean
+        HasDoorSensor2:
+          type: boolean
+        HasDoorSensor3:
+          type: boolean
+        HasDoorSensor4:
+          type: boolean
+        TempLoggerType:
+          $ref: '#/components/schemas/TempLoggerType'
+        HasTempSensor1:
+          type: boolean
+        HasTempSensor2:
+          type: boolean
+        HasTempSensor3:
+          type: boolean
+        HasTempSensor4:
+          type: boolean
+        HasTempSensor5:
+          type: boolean
+        HasTempSensor6:
+          type: boolean
+        ReeferType:
+          type: string
+          nullable: true
+        ReeferDataSource:
+          $ref: '#/components/schemas/ReeferDataSource'
+        HasReeferCompartment1:
+          type: boolean
+        HasReeferCompartment2:
+          type: boolean
+        HasReeferCompartment3:
+          type: boolean
+        HasTCITruckIdentification:
+          type: boolean
+        HasTCIHumiditySensor:
+          type: boolean
+        HasTCIDigitalIn1:
+          type: boolean
+        HasTCIDigitalIn2:
+          type: boolean
+        HasLEDTankSensor:
+          type: boolean
+      additionalProperties: false
+      description: 'Indicates the configuration of the trailer.'
+    SystemConfigBatteryConfiguration:
+      type: object
+      properties:
+        BatteryType:
+          type: array
+          items:
+            $ref: '#/components/schemas/BatteryType'
+          nullable: true
+      additionalProperties: false
+      description: 'Displays the trailers battery configuration.'
+    TCIStatus:
+      type: object
+      properties:
+        DateTime:
+          type: string
+          format: date-time
+          nullable: true
+        FuelLevel:
+          $ref: '#/components/schemas/FuelLevelState'
+        Humidity:
+          type: string
+          nullable: true
+        DigiInput1:
+          $ref: '#/components/schemas/BooleanEx3'
+        DigiInput2:
+          $ref: '#/components/schemas/BooleanEx3'
+        Truck:
+          $ref: '#/components/schemas/TCIStatusTruck'
+      additionalProperties: false
+      description: 'Statusdata of the TrailerConnect Interface (TCI).'
+    TCIStatusTruck:
+      type: object
+      properties:
+        TagId:
+          type: string
+          nullable: true
+        Name:
+          type: string
+          nullable: true
+      additionalProperties: false
+      description: 'TCI Truck data (Tag based).'
+    TelematicType:
+      enum:
+        - CTU_1
+        - CTU_2
+        - CTU_3
+        - Reserved
+      type: string
+      description: 'Generation of the telematics unit.'
+    TemperatureLoggerStatus:
+      type: object
+      properties:
+        DateTime:
+          type: string
+          format: date-time
+          nullable: true
+        Temp1:
+          type: number
+          format: double
+          nullable: true
+        Temp2:
+          type: number
+          format: double
+          nullable: true
+        Temp3:
+          type: number
+          format: double
+          nullable: true
+        Temp4:
+          type: number
+          format: double
+          nullable: true
+        Temp5:
+          type: number
+          format: double
+          nullable: true
+        Temp6:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+      description: 'Status of the temperature loggers.'
+    TempLoggerType:
+      enum:
+        - TRANSCAN_TRANSCAN_2
+        - TRANSCAN_TRANSCAN_XL
+        - EUROSCAN_EUROSCAN_X_2
+        - CARRIER_DATACOLD_500
+        - CARRIER_DATACOLD_500_V_2
+        - CARRIER_DATACOLD_500_V_3
+        - THERMOKING_I_BOX
+        - THERMOKING_I_BOX_V_2
+        - THERMOKING_DAS
+        - CBT_TRAILER_CONNECT_INTERFACE
+        - RESERVED
+        - NO_TEMP_LOGGER
+      type: string
+    TirePressureStatus:
+      type: object
+      properties:
+        DateTime:
+          type: string
+          format: date-time
+          nullable: true
+        FrontLeft:
+          type: number
+          format: double
+          nullable: true
+          deprecated: true
+        FrontRight:
+          type: number
+          format: double
+          nullable: true
+          deprecated: true
+        MiddleLeft:
+          type: number
+          format: double
+          nullable: true
+          deprecated: true
+        MiddleRight:
+          type: number
+          format: double
+          nullable: true
+          deprecated: true
+        RearLeft:
+          type: number
+          format: double
+          nullable: true
+          deprecated: true
+        RearRight:
+          type: number
+          format: double
+          nullable: true
+          deprecated: true
+        Spare:
+          type: number
+          format: double
+          nullable: true
+          deprecated: true
+        TirePressure16:
+          type: number
+          format: double
+          nullable: true
+        TirePressure17:
+          type: number
+          format: double
+          nullable: true
+        TirePressure19:
+          type: number
+          format: double
+          nullable: true
+        TirePressure1A:
+          type: number
+          format: double
+          nullable: true
+        TirePressure26:
+          type: number
+          format: double
+          nullable: true
+        TirePressure27:
+          type: number
+          format: double
+          nullable: true
+        TirePressure29:
+          type: number
+          format: double
+          nullable: true
+        TirePressure2A:
+          type: number
+          format: double
+          nullable: true
+        TirePressure36:
+          type: number
+          format: double
+          nullable: true
+        TirePressure37:
+          type: number
+          format: double
+          nullable: true
+        TirePressure39:
+          type: number
+          format: double
+          nullable: true
+        TirePressure3A:
+          type: number
+          format: double
+          nullable: true
+        TirePressure46:
+          type: number
+          format: double
+          nullable: true
+        TirePressure47:
+          type: number
+          format: double
+          nullable: true
+        TirePressure48:
+          type: number
+          format: double
+          nullable: true
+        TirePressure49:
+          type: number
+          format: double
+          nullable: true
+        TirePressure4A:
+          type: number
+          format: double
+          nullable: true
+        TirePressureStates:
+          $ref: '#/components/schemas/TirePressureStates'
+      additionalProperties: false
+      description: 'Tyres pressure status. Some values are duplicates due to legacy compatibility reasons.'
+    TirePressureStates:
+      type: object
+      properties:
+        State16:
+          $ref: '#/components/schemas/TirePressureState'
+        State17:
+          $ref: '#/components/schemas/TirePressureState'
+        State19:
+          $ref: '#/components/schemas/TirePressureState'
+        State1A:
+          $ref: '#/components/schemas/TirePressureState'
+        State26:
+          $ref: '#/components/schemas/TirePressureState'
+        State27:
+          $ref: '#/components/schemas/TirePressureState'
+        State29:
+          $ref: '#/components/schemas/TirePressureState'
+        State2A:
+          $ref: '#/components/schemas/TirePressureState'
+        State36:
+          $ref: '#/components/schemas/TirePressureState'
+        State37:
+          $ref: '#/components/schemas/TirePressureState'
+        State39:
+          $ref: '#/components/schemas/TirePressureState'
+        State3A:
+          $ref: '#/components/schemas/TirePressureState'
+        State46:
+          $ref: '#/components/schemas/TirePressureState'
+        State47:
+          $ref: '#/components/schemas/TirePressureState'
+        State48:
+          $ref: '#/components/schemas/TirePressureState'
+        State49:
+          $ref: '#/components/schemas/TirePressureState'
+        State4A:
+          $ref: '#/components/schemas/TirePressureState'
+        State58:
+          $ref: '#/components/schemas/TirePressureState'
+      additionalProperties: false
+      nullable: true
+      description: 'Tyre pressure state sensors.'
+    TirePressureState:
+      enum:
+        - NoPressureDrop
+        - FastPressureDrop
+        - SlowAirLeakage
+        - Overpressure
+        - NoSensorAxleNotConfigured
+      type: string
+      nullable: true
+      description: 'State of the tire pressure sensor.'
+    TPCSType:
+      enum:
+        - WABCO_IVTM
+        - SCB
+        - Reserved
+        - No_TPCS
+      type: string
+      description: 'Type of the Tyre Pressure Control System (TPCS).'
+    TrailerProducer:
+      enum:
+        - SCHMITZ_CARGOBULL_AG
+        - BENALU
+        - BODEX
+        - BROSHUIS
+        - BURG_INDUSTRIES
+        - CARDI
+        - CARNEHL
+        - CARTWRIGHT
+        - CHEREAU
+        - COMETTO
+        - DENNISONS
+        - FAYMONVILLE
+        - FEBER
+        - FELDBINDER
+        - FLIEGEL
+        - FRUEHAUF
+        - GRAY_AND_ADAMS
+        - HAMMAR_MASKIN
+        - KNAPEN
+        - KOEGEL
+        - KRAKER
+        - KRONE
+        - LAMBERET
+        - LECINENA
+        - LECITRAILER
+        - LOHR
+        - MARGARITELLI
+        - MEILER
+        - MERKER
+        - MONTRACON
+        - NOTEBOOM_TRAILERS
+        - OTOKAR
+        - PACTON
+        - PANAV
+        - PEZZAIOLI
+        - RENDERS
+        - ROLFO
+        - SAMRO
+        - SCHWARZMUELLER
+        - SDC
+        - SOR_IBERICA
+        - STAS
+        - TIRSAN
+        - VAN_HOOL
+        - VIBERTI
+        - WEKA
+        - WIELTON
+        - ZORZI
+        - UNKNOWN
+      type: string
+      description: 'Manufacturer of the trailer.'
+    TrailerType:
+      enum:
+        - CURTAINSIDER_SEMITRAILER
+        - TILT
+        - DRY_FREIGHTER_TRAILER
+        - BOX_SEMITRAILER
+        - TIPPER
+        - CHASSIS
+        - TRUCK_BOX
+        - TRAILER
+        - MOTOR_VEHICLE
+        - CAR
+        - RETROFIT_OF_REEFER_UNIT
+        - SWAP_BODY
+        - CONTAINER
+        - RESERVED
+      type: string
+      description: 'Type of the trailer.'
+    TripBase:
+      type: object
+      properties:
+        StartData:
+          oneOf:
+            - $ref: '#/components/schemas/TripPositonData'
+            - $ref: '#/components/schemas/TripPositonDataEnd'
+          nullable: true
+        EndData:
+          $ref: '#/components/schemas/TripPositonDataEnd'
+        AlarmCount:
+          type: string
+          nullable: true
+        TotalDistance:
+          type: number
+          format: double
+          nullable: true
+        TripDuration:
+          type: string
+          nullable: true
+        TripLength:
+          type: number
+          format: double
+          nullable: true
+        NumberDoorChanges:
+          type: string
+          nullable: true
+        StandstillDuration:
+          type: string
+          nullable: true
+        AverageVelocity:
+          type: string
+          nullable: true
+        MaxVelocity:
+          type: string
+          nullable: true
+        AverageBogieLoad:
+          type: string
+          nullable: true
+        MaxBogieLoad:
+          type: string
+          nullable: true
+        Absolut24NCounter:
+          $ref: '#/components/schemas/LongEx'
+        Trip24NCounter:
+          $ref: '#/components/schemas/LongEx'
+      additionalProperties: false
+      description: 'Information on a trip.'
+    TripData:
+      type: object
+      properties:
+        TripBase:
+          $ref: '#/components/schemas/TripBase'
+        Reefer:
+          $ref: '#/components/schemas/TripReefer'
+        Temp:
+          $ref: '#/components/schemas/TripTempLogger'
+      additionalProperties: false
+      description: 'Actual TripData object.'
+    TripDataIn:
+      type: object
+      properties:
+        ChassisNumber:
+          type: string
+          nullable: true
+        ReferenceUserName:
+          type: string
+          nullable: true
+        ReferenceCustomerName:
+          type: string
+          nullable: true
+        TripData:
+          $ref: '#/components/schemas/TripData'
+      additionalProperties: false
+      description: 'TripData message payload containing the TripData object aswell as related metadata.'
+    TripPositonData:
+      type: object
+      properties:
+        DateTime:
+          type: string
+          format: date-time
+          nullable: true
+        Latitude:
+          type: number
+          format: double
+          nullable: true
+        Longitude:
+          type: number
+          format: double
+          nullable: true
+        Location:
+          $ref: '#/components/schemas/Location'
+        GPSDatetime:
+          type: string
+          format: date-time
+          nullable: true
+      additionalProperties: false
+    TripPositonDataEnd:
+      type: object
+      allOf:
+        - $ref: '#/components/schemas/TripPositonData'
+      properties:
+        IsDoorOpen:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    TripReefer:
+      type: object
+      properties:
+        MinSetpointComp1:
+          type: number
+          format: double
+          nullable: true
+        MaxSetpointComp1:
+          type: number
+          format: double
+          nullable: true
+        MinSetpointComp2:
+          type: number
+          format: double
+          nullable: true
+        MaxSetpointComp2:
+          type: number
+          format: double
+          nullable: true
+        MinSetpointComp3:
+          type: number
+          format: double
+          nullable: true
+        MaxSetpointComp3:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    TripTempData:
+      type: object
+      properties:
+        AverageTemp:
+          type: number
+          format: double
+          nullable: true
+        MinTemp:
+          type: number
+          format: double
+          nullable: true
+        MaxTemp:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+    TripTempLogger:
+      type: object
+      properties:
+        Temp1:
+          $ref: '#/components/schemas/TripTempData'
+        Temp2:
+          $ref: '#/components/schemas/TripTempData'
+        Temp3:
+          $ref: '#/components/schemas/TripTempData'
+        Temp4:
+          $ref: '#/components/schemas/TripTempData'
+      additionalProperties: false
+    TyreLiningState:
+      type: object
+      properties:
+        TyreLining17Ok:
+          type: boolean
+          nullable: true
+        TyreLining19Ok:
+          type: boolean
+          nullable: true
+        TyreLining27Ok:
+          type: boolean
+          nullable: true
+        TyreLining29Ok:
+          type: boolean
+          nullable: true
+        TyreLining37Ok:
+          type: boolean
+          nullable: true
+        TyreLining39Ok:
+          type: boolean
+          nullable: true
+      additionalProperties: false
+    TyreTemperature:
+      type: object
+      properties:
+        Temperature16:
+          type: number
+          format: double
+          nullable: true
+        Temperature17:
+          type: number
+          format: double
+          nullable: true
+        Temperature19:
+          type: number
+          format: double
+          nullable: true
+        Temperature1A:
+          type: number
+          format: double
+          nullable: true
+        Temperature26:
+          type: number
+          format: double
+          nullable: true
+        Temperature27:
+          type: number
+          format: double
+          nullable: true
+        Temperature29:
+          type: number
+          format: double
+          nullable: true
+        Temperature2A:
+          type: number
+          format: double
+          nullable: true
+        Temperature36:
+          type: number
+          format: double
+          nullable: true
+        Temperature37:
+          type: number
+          format: double
+          nullable: true
+        Temperature39:
+          type: number
+          format: double
+          nullable: true
+        Temperature3A:
+          type: number
+          format: double
+          nullable: true
+        Temperature46:
+          type: number
+          format: double
+          nullable: true
+        Temperature47:
+          type: number
+          format: double
+          nullable: true
+        Temperature48:
+          type: number
+          format: double
+          nullable: true
+        Temperature49:
+          type: number
+          format: double
+          nullable: true
+        Temperature4A:
+          type: number
+          format: double
+          nullable: true
+      additionalProperties: false
+      description: 'Temperature of the tyres in degrees centigrade (°C).'
+    TapaStatus:
+      type: object
+      properties:
+        TapaVehicleStop:
+          type: boolean
+          nullable: true
+        Active:
+          type: boolean
+          nullable: true
+        TapaModeInterval:
+          type: number
+          format: uint
+          nullable: true
+        SabotageDetection:
+          $ref: '#/components/schemas/TapaSabotageDetection'
+      additionalProperties: false
+    TapaSabotageDetection:
+      type: object
+      properties:
+        EbsDisconnect:
+          type: boolean
+          nullable: true
+        CisBatteryGuardCanDisconnect:
+          type: boolean
+          nullable: true
+        CisBatteryGuardDisconnectedOrNotAvailable:
+          type: boolean
+          nullable: true
+        DoorlockingSystemLinDisconnected:
+          type: boolean
+          nullable: true
+      additionalProperties: false
